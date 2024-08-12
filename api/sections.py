@@ -9,7 +9,7 @@ sections = []
 
 class Section(BaseModel): 
     name: str 
-    users: int 
+     
 
 
 
