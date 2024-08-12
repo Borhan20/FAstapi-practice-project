@@ -32,7 +32,7 @@ async def get_users():
 @app.post("/users")
 async def crete_users(user: User):
     users.append(user)
-    return {"message": "User appended"}
+    return {"message": "User Created"}
 
 @app.get("/users/{id}")
 async def get_user(
