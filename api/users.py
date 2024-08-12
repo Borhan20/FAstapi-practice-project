@@ -26,7 +26,7 @@ async def get_users():
 @router.post("/users")
 async def crete_users(user: User):
     users.append(user)
-    return {"message": "User "}
+    return {"message": "User created"}
 
 @router.get("/users/{id}")
 async def get_user(

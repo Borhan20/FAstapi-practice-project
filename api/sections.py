@@ -21,7 +21,7 @@ async def get_sections():
 @router.post("/sections")
 async def crete_sections(section: Section):
     sections.append(section)
-    return {"message": "User "}
+    return {"message": "Section created"}
 
 @router.get("/sections/{id}")
 async def get_section(
