@@ -1,12 +1,14 @@
 import fastapi
 from fastapi import Path, Query
 from api.utils.users import get_users, create_user, get_user,get_user_by_email
+from api.utils.course import get_courses_by_user
 from pydantic_schemas.user import User, UserCreate
 from typing import Optional,List
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 from fastapi import HTTPException, WebSocketException
+from pydantic_schemas.course import Course
 
 from db.db_setup import get_db, get_async_db
 
@@ -42,3 +44,8 @@ async def get_user_by_id(user_id: int ,db: AsyncSession = Depends(get_async_db) 
     if db_user is None: 
         raise HTTPException(status_code=404, detail="user not found")
     return db_user
+
+@router.get("users/{user_id}/courses", response_model=List[Course], status_code=200)
+async def read_courses_by_user(user_id: int, skip: int =0, limit: int = 100, db: Session = Depends(get_db)): 
+    courses = get_courses_by_user(user_id = user_id,db=db, skip=skip, limit=limit)
+    return courses
