@@ -1,10 +1,10 @@
 from pydantic import BaseModel 
 from datetime import datetime
-from enum import Enum
+
 
 class UserBase(BaseModel): 
     email: str 
-    role: Enum 
+    role: int 
 
 
 class UserCreate(UserBase): 
