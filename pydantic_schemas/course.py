@@ -1,18 +1,17 @@
 from pydantic import BaseModel 
 from datetime import datetime
-from typing import Optional
 
 
-class UserBase(BaseModel): 
-    email: str 
-    role: int 
+class CourseBase(BaseModel): 
+    name: str
+    user_id: int
 
-class UserCreate(UserBase): 
+
+class CourseCreate(CourseBase): 
     ... 
 
-class User(UserBase): 
+class Course(CourseBase): 
     id: int 
-    is_active: bool 
     created_at: datetime
     updated_at: datetime
 
