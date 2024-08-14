@@ -1,16 +1,23 @@
 import fastapi
 from fastapi import Path, Query
 from api.utils.course import get_course, create_courses, get_courses,get_course_by_name
-from pydantic_schemas.course import Course, CourseCreate
+from pydantic_schemas.course import Course, CourseCreate, CourseWithStudents
 from typing import Optional,List
 from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import Depends
 from fastapi import HTTPException, WebSocketException
+from db import models
 
 from db.db_setup import get_async_db, get_db
 
 router = fastapi.APIRouter()
+
+
+@router.get("/courses/users", response_model=List[CourseWithStudents])
+async def read_courses_students(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    courses = get_courses(db=db, skip=skip, limit=limit)
+    return courses
 
 @router.get("/courses", response_model= List[Course])
 async def read_courses(skip: int =0, limit: int = 100, db: Session = Depends(get_db)):

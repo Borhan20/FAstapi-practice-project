@@ -1,19 +1,33 @@
-from pydantic import BaseModel 
+from pydantic import BaseModel
 from datetime import datetime
+from typing import List
+from .commonbase import CourseRequestBase,UserResponseBase
 
+# class UserBase(BaseModel):
+#     id: int
+#     email: str
+#     role: int
 
-class CourseBase(BaseModel): 
-    name: str
-    user_id: int
+#     class Config:
+#         orm_mode = True
 
+# class CourseBase(BaseModel):
+#     name: str
+#     user_id: int
 
-class CourseCreate(CourseBase): 
-    ... 
+class CourseCreate(CourseRequestBase):
+    pass
 
-class Course(CourseBase): 
-    id: int 
+class Course(CourseRequestBase):
+    id : int
     created_at: datetime
     updated_at: datetime
 
-    class Config: 
-        from_attributes = True 
+    class Config:
+        orm_mode = True
+
+class CourseWithStudents(Course):
+    created_by : UserResponseBase
+
+    class Config:
+        orm_mode = True
