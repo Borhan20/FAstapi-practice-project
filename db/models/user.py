@@ -17,6 +17,9 @@ class User(Timestamp,Base):
     is_active = Column(Boolean, default= False)
     profile = relationship("Profile", back_populates="owner", uselist=False)
 
+    courses = relationship("Course", back_populates="created_by")
+
+
 
 class Profile(Timestamp,Base): 
     __tablename__ = "profiles"

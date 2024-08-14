@@ -31,6 +31,7 @@ def get_courses(db: Session, skip: int = 0, limit: int = 100):
 
 def get_courses_by_user(user_id: int, db: Session, skip: int = 0, limit: int =100): 
     courses = db.query(Course).filter(Course.user_id == user_id).offset(skip).limit(limit).all()
+    return courses
 
 def create_courses(db: Session, course: CourseCreate):
     db_course = Course(name = course.name, user_id = course.user_id)
